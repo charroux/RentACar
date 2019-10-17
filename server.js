@@ -56,6 +56,23 @@ myRouter.route('/cars')
 res.json({message : "Suppression d'une piscine dans la liste", methode : req.method});  
 }); 
 
+
+
+
+myRouter.route('/cars/:piscine_id')
+.get(function(req,res){
+	  res.json({message : "Vous souhaitez accéder aux informations de la piscine n°" + req.params.piscine_id + " " + req.query.id});
+})
+.put(function(req,res){
+	  res.json({message : "Vous souhaitez modifier les informations de la piscine n°" + req.params.piscine_id});
+})
+.delete(function(req,res){
+	  res.json({message : "Vous souhaitez supprimer la piscine n°" + req.params.piscine_id});
+});
+
+
+
+
 // Nous demandons à l'application d'utiliser notre routeur
 app.use(myRouter);  
 
