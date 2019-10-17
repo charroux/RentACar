@@ -10,6 +10,10 @@ var port = 8080;
 var app = express(); 
 
 
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 
 var user = {
@@ -37,8 +41,12 @@ myRouter.route('/cars')
 })
 //POST
 .post(function(req,res){
-      res.json({message : "Ajoute une nouvelle piscine à la liste", methode : req.method});
-})
+      res.json({message : "Ajoute une nouvelle piscine à la liste",
+       nom : req.body.nom,
+       ville : req.body.ville,
+       taille : req.body.taille,
+       methode : req.method});
+      })
 //PUT
 .put(function(req,res){ 
       res.json({message : "Mise à jour des informations d'une piscine dans la liste", methode : req.method});
