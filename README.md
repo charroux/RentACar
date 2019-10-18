@@ -43,8 +43,6 @@ Rent a car with:
 
 curl -X PUT -H 'Content-Type: application/json' -i 'http://localhost:8080/cars/AA11BB?rent=true' --data '{"debut":"10/10/2020", "fin":"20/10/2020"}'
 
-or use a plugin like RestClient.
-
 Get back a car with:
 
 curl -X PUT -H 'Content-Type: application/json' -i 'http://localhost:8080/cars/AA11BB?rent=false'
