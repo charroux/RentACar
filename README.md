@@ -27,6 +27,14 @@ start the server with: npm start
 
 ## Send request to the server
 
+Get the list of cars to be rented:
+
+curl -X GET -H 'Content-Type: application/json' -i http://localhost:8080/cars
+
+Add a new car:
+
+curl -X POST -H 'Content-Type: application/json' -i http://localhost:8080/cars --data '{ "plateNumber" : "DD33EE" , "brand" : "Maserati", "price" : 100 }'
+
 Get a car to be rented: 
 
 curl -X GET -H 'Content-Type: application/json' -i http://localhost:8080/cars/AA11BB

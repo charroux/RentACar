@@ -8,29 +8,42 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var car = {
-    "brand":"Ferrari",
-    "model":"458 Italia",
-    "plateNumber":"AA11BB",
-    "price":2000
-}
+var cars = [
+    {
+        "brand":"Ferrari",
+        "plateNumber":"AA11BB",
+        "price":2000
+    },
+    {
+        "brand":"Porshe",
+        "plateNumber":"CC22DD",
+        "price":1500
+    }
+]
 
 var myRouter = express.Router();
 
+myRouter.route('/cars')
+.get(function(req,res){
+    res.json({message : "Cars to be rented", data: cars});
+})
+.post(function(req,res){
+    cars.push(req.body);
+    res.json({message : "Add a car", brand: req.body.brand, plateNumber: req.body.plateNumber, price: req.body.price});
+});
+
+
 myRouter.route('/cars/:plateNumber')
 .get(function(req,res){
-    if(req.params.plateNumber == "AA11BB"){
-        res.json({message : "Info sur la voiture " + req.params.plateNumber, data: car});
-    } else {
-        res.json({message : "Voiture inconnue"});
-    }
-
+    var car = cars.find(car => car.plateNumber === req.params.plateNumber);
+    if(car == undefined) res.status(404).send('No such a car with plateNumber: ' + req.params.plateNumber);
+    else res.json({message : "Info on car " + req.params.plateNumber, data: car});
 })
 .put(function(req,res){
     if(req.query.rent == "true"){
-        res.json({message : "Vous souhaitez louer la voiture : " + req.params.plateNumber, debut : req.body.debut, fin : req.body.fin});
+        res.json({message : "Rent the car: " + req.params.plateNumber, debut : req.body.debut, fin : req.body.fin});
     } else {
-        res.json({message : "Vous souhaitez ramener la voiture : " + req.params.plateNumber});
+        res.json({message : "Get back the car: " + req.params.plateNumber});
     }
 });
 
